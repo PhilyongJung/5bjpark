@@ -21,7 +21,7 @@
 
 | 번호판 입력 | 알람 설정 | 홈 화면 |
 |:-:|:-:|:-:|
-| 번호판 4자리 입력 및 캘린더 | 다중 알람 & 전날 알림 설정 | 오늘 상태 & 월간 캘린더 |
+| <img src="screenshots/01_setup.png" width="250"/> | <img src="screenshots/02_alarm_config.png" width="250"/> | <img src="screenshots/03_home.png" width="250"/> |
 
 ## 기술 스택
 
