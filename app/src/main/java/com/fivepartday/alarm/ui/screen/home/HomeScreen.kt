@@ -191,6 +191,8 @@ fun HomeScreen(
             MonthCalendarView(
                 yearMonth = uiState.currentYearMonth,
                 fivePartDays = uiState.fivePartDays,
+                onPreviousMonth = { viewModel.changeMonth(-1) },
+                onNextMonth = { viewModel.changeMonth(1) },
                 modifier = Modifier.padding(16.dp)
             )
         }

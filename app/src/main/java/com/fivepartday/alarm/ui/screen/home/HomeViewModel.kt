@@ -67,6 +67,16 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun changeMonth(delta: Int) {
+        val state = _uiState.value
+        val newYearMonth = state.currentYearMonth.plusMonths(delta.toLong())
+        val days = FivePartDayCalculator.getFivePartDaysInMonth(state.licensePlate, newYearMonth)
+        _uiState.value = state.copy(
+            currentYearMonth = newYearMonth,
+            fivePartDays = days.map { it.dayOfMonth }.toSet()
+        )
+    }
+
     fun toggleAlarmEnabled(enabled: Boolean) {
         viewModelScope.launch {
             repository.updateAlarmEnabled(enabled)

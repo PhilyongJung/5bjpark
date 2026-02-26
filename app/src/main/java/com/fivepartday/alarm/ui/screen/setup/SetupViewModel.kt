@@ -31,7 +31,7 @@ class SetupViewModel(application: Application) : AndroidViewModel(application) {
         if (input.length == 4) {
             val digits = FivePartDayCalculator.getRestrictedEndDigits(input)
             if (digits != null) {
-                val yearMonth = YearMonth.now()
+                val yearMonth = _uiState.value.currentYearMonth
                 val days = FivePartDayCalculator.getFivePartDaysInMonth(input, yearMonth)
                 _uiState.value = _uiState.value.copy(
                     lastDigit = digits.first,
@@ -46,6 +46,18 @@ class SetupViewModel(application: Application) : AndroidViewModel(application) {
                 fivePartDays = emptyList()
             )
         }
+    }
+
+    fun changeMonth(delta: Int) {
+        val newYearMonth = _uiState.value.currentYearMonth.plusMonths(delta.toLong())
+        val plate = _uiState.value.plateInput
+        val days = if (plate.length == 4) {
+            FivePartDayCalculator.getFivePartDaysInMonth(plate, newYearMonth).map { it.dayOfMonth }
+        } else emptyList()
+        _uiState.value = _uiState.value.copy(
+            currentYearMonth = newYearMonth,
+            fivePartDays = days
+        )
     }
 
     fun savePlate(onComplete: () -> Unit) {

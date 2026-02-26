@@ -105,6 +105,8 @@ fun SetupScreen(
                 MonthCalendarView(
                     yearMonth = uiState.currentYearMonth,
                     fivePartDays = uiState.fivePartDays.toSet(),
+                    onPreviousMonth = { viewModel.changeMonth(-1) },
+                    onNextMonth = { viewModel.changeMonth(1) },
                     modifier = Modifier.padding(16.dp)
                 )
             }

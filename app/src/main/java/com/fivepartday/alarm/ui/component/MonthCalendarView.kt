@@ -9,7 +9,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +39,8 @@ import java.time.YearMonth
 fun MonthCalendarView(
     yearMonth: YearMonth,
     fivePartDays: Set<Int>,
+    onPreviousMonth: (() -> Unit)? = null,
+    onNextMonth: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val today = LocalDate.now()
@@ -44,11 +52,36 @@ fun MonthCalendarView(
     val dayHeaders = listOf("월", "화", "수", "목", "금", "토", "일")
 
     Column(modifier = modifier.fillMaxWidth()) {
-        Text(
-            text = "${yearMonth.year}년 ${yearMonth.monthValue}월",
-            style = MaterialTheme.typography.titleLarge,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(
+                onClick = { onPreviousMonth?.invoke() },
+                enabled = onPreviousMonth != null
+            ) {
+                Icon(
+                    Icons.Default.KeyboardArrowLeft,
+                    contentDescription = "이전 달",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+            Text(
+                text = "${yearMonth.year}년 ${yearMonth.monthValue}월",
+                style = MaterialTheme.typography.titleLarge
+            )
+            IconButton(
+                onClick = { onNextMonth?.invoke() },
+                enabled = onNextMonth != null
+            ) {
+                Icon(
+                    Icons.Default.KeyboardArrowRight,
+                    contentDescription = "다음 달",
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+        }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
